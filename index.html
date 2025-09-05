@@ -97,12 +97,22 @@
         padding: 16px 0;
       }
       .brand {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        font-weight: 800;
-        letter-spacing: 0.4px;
-      }
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--text);
+  text-decoration: none; /* hilangkan underline */
+  transition: color 0.2s ease;
+}
+
+.brand:hover {
+  color: var(--brand); /* efek hover */
+}
+
+.brand:visited,
+.brand:active {
+  color: var(--text); /* biar tidak berubah warna */
+}
+
       .brand .logo {
         width: 36px;
         height: 36px;
@@ -849,6 +859,7 @@
     </script>
   </body>
 </html>
+
 
 
 
