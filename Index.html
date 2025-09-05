@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Portofolio – Komang Budiarta</title>
+    <meta
+      name="description"
+      content="Portofolio pribadi berisi profil, proyek, pengalaman, dan kontak."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* ====== Reset & Tokens ====== */
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      html:focus-within {
+        scroll-behavior: smooth;
+      }
+      body {
+        margin: 0;
+        font-family: "Plus Jakarta Sans", system-ui, -apple-system, Segoe UI,
+          Roboto, Ubuntu, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+        line-height: 1.6;
+        background: var(--bg);
+        color: var(--text);
+      }
+      img {
+        max-width: 100%;
+        display: block;
+      }
+      :root {
+        --bg: #0b0f17;
+        --panel: #0f1522;
+        --panel-2: #121a2b;
+        --text: #e6eefc;
+        --muted: #a9b4c7;
+        --brand: #6ea8ff;
+        --brand-2: #7cffc7;
+        --warning: #ffd36e;
+        --danger: #ff7b8a;
+        --ok: #8aff7b;
+        --ring: 0 0 0 0 rgba(110, 168, 255, 0.35);
+        --radius: 20px;
+        --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+        --grid: clamp(16px, 2vw, 28px);
+      }
+
+      /* ====== Util ====== */
+      .container {
+        width: min(1100px, 92%);
+        margin-inline: auto;
+      }
+      .section {
+        padding: clamp(56px, 10vh, 120px) 0;
+      }
+      .title {
+        font-size: clamp(28px, 3.2vw, 40px);
+        line-height: 1.2;
+        margin: 0 0 10px;
+      }
+      .lead {
+        color: var(--muted);
+        font-size: clamp(16px, 1.6vw, 18px);
+      }
+      .tag {
+        display: inline-block;
+        padding: 0.35rem 0.7rem;
+        border-radius: 999px;
+        background: linear-gradient(90deg, var(--panel), var(--panel-2));
+        border: 1px solid #1e2a44;
+        color: var(--muted);
+        font-size: 0.85rem;
+      }
+
+      /* ====== App Shell ====== */
+      header.site-nav {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        background: rgba(11, 15, 23, 0.6);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      }
+      .nav-inner {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        justify-content: space-between;
+        padding: 16px 0;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 800;
+        letter-spacing: 0.4px;
+      }
+      .brand .logo {
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+        display: grid;
+        place-items: center;
+        background: linear-gradient(140deg, var(--brand), var(--brand-2));
+        box-shadow: 0 6px 20px rgba(110, 168, 255, 0.35);
+      }
+      .brand span {
+        font-size: 1.05rem;
+      }
+      nav a {
+        color: var(--muted);
+        text-decoration: none;
+        padding: 10px 12px;
+        border-radius: 10px;
+        position: relative;
+      }
+      nav a:hover {
+        color: var(--text);
+      }
+      nav a::after {
+        content: "";
+        position: absolute;
+        inset: auto 10px 6px;
+        height: 2px;
+        border-radius: 2px;
+        background: linear-gradient(90deg, var(--brand), var(--brand-2));
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.35s ease;
+      }
+      nav a:focus-visible,
+      button:focus-visible,
+      .chip:focus-visible {
+        outline: none;
+        box-shadow: var(--ring);
+      }
+      nav a:hover::after,
+      nav a:focus::after,
+      nav a:active::after {
+        transform: scaleX(1);
+      }
+
+      /* ====== Hero ====== */
+      .hero {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 40px;
+        align-items: center;
+      }
+      .hero-card {
+        background: linear-gradient(
+          160deg,
+          rgba(110, 168, 255, 0.15),
+          rgba(124, 255, 199, 0.08)
+        );
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: var(--radius);
+        padding: clamp(22px, 3vw, 36px);
+        box-shadow: var(--shadow);
+      }
+      .hero h1 {
+        font-size: clamp(36px, 6vw, 64px);
+        line-height: 1.08;
+        margin: 0.1em 0 0.3em;
+      }
+      .hero p {
+        color: var(--muted);
+        font-size: clamp(16px, 1.6vw, 18px);
+      }
+      .cta {
+        display: flex;
+        gap: 14px;
+        flex-wrap: wrap;
+        margin-top: 22px;
+      }
+      .btn {
+        appearance: none;
+        border: 0;
+        border-radius: 14px;
+        padding: 12px 16px;
+        background: var(--brand);
+        color: #07101f;
+        font-weight: 700;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        transition: transform 0.15s ease, box-shadow 0.15s ease;
+      }
+      .btn:hover {
+        transform: translateY(-2px);
+      }
+      .btn.secondary {
+        background: #1a2b4a;
+        color: var(--text);
+        border: 1px solid #2b3f65;
+      }
+      .avatar {
+        width: 100%;
+        aspect-ratio: 1/1;
+        border-radius: 20px;
+        background: linear-gradient(160deg, #172136, #0d1424);
+        border: 1px solid #223154;
+        display: grid;
+        place-items: center;
+        position: relative;
+        overflow: hidden;
+      }
+      .avatar::before {
+        content: "";
+        position: absolute;
+        width: 160%;
+        height: 160%;
+        background: radial-gradient(
+          closest-corner,
+          rgba(110, 168, 255, 0.25),
+          transparent 60%
+        );
+        filter: blur(20px);
+        transform: translate(-30%, -30%) rotate(10deg);
+      }
+      .avatar img {
+        width: 66%;
+        opacity: 0.95;
+        filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.35));
+      }
+
+      /* Entry animation */
+      @keyframes floatIn {
+        from {
+          opacity: 0;
+          transform: translateY(16px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      .hero-card,
+      .avatar {
+        animation: floatIn 0.7s ease both;
+      }
+      .avatar {
+        animation-delay: 0.12s;
+      }
+
+      /* ====== Tabs Filter (Projects) ====== */
+      .tabs {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 20px 0 28px;
+      }
+      .chip {
+        border: 1px solid #29416c;
+        background: linear-gradient(180deg, #0f1726, #0b1320);
+        color: var(--muted);
+        padding: 10px 14px;
+        border-radius: 999px;
+        font-weight: 600;
+        cursor: pointer;
+        user-select: none;
+      }
+      .chip:hover {
+        color: var(--text);
+        border-color: #35558d;
+      }
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        gap: var(--grid);
+      }
+      .card {
+        grid-column: span 6;
+        background: linear-gradient(180deg, #0f1626, #0b101a);
+        border: 1px solid #203258;
+        border-radius: var(--radius);
+        padding: 18px;
+        transition: transform 0.25s ease, box-shadow 0.25s ease,
+          border-color 0.25s ease;
+        position: relative;
+        overflow: hidden;
+      }
+      .card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+        border-color: #35558d;
+      }
+      .card .thumb {
+        aspect-ratio: 16/9;
+        border-radius: 14px;
+        overflow: hidden;
+        border: 1px solid #23365f;
+        background: #0e1422;
+        display: grid;
+        place-items: center;
+      }
+      .card h3 {
+        margin: 14px 0 8px;
+        font-size: 1.15rem;
+      }
+      .card p {
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+      .meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 10px;
+      }
+
+      /* Hover parallax shine */
+      .card::after {
+        content: "";
+        position: absolute;
+        inset: -200% -200% auto auto;
+        width: 60%;
+        aspect-ratio: 1/1;
+        background: conic-gradient(
+          from 180deg at 50% 50%,
+          transparent,
+          rgba(110, 168, 255, 0.12),
+          transparent 60%
+        );
+        transform: translate(-50%, -50%) rotate(0);
+        transition: transform 0.6s ease, opacity 0.3s ease;
+        opacity: 0.25;
+        pointer-events: none;
+      }
+      .card:hover::after {
+        transform: translate(-30%, -30%) rotate(20deg);
+        opacity: 0.5;
+      }
+
+      /* Experience accordion (CSS-only) */
+      details {
+        background: linear-gradient(180deg, #0f1626, #0b101a);
+        border: 1px solid #203258;
+        border-radius: 14px;
+        padding: 14px 16px;
+      }
+      details + details {
+        margin-top: 12px;
+      }
+      summary {
+        cursor: pointer;
+        font-weight: 700;
+        list-style: none;
+      }
+      summary::-webkit-details-marker {
+        display: none;
+      }
+      summary::after {
+        content: "↕";
+        float: right;
+        opacity: 0.6;
+        transition: transform 0.25s ease;
+      }
+      details[open] summary::after {
+        transform: rotate(180deg);
+      }
+      details p {
+        color: var(--muted);
+        margin: 0.6rem 0 0.2rem;
+      }
+
+      /* Contact */
+      .contact {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: var(--grid);
+      }
+      .contact .panel {
+        background: linear-gradient(180deg, #0f1626, #0b101a);
+        border: 1px solid #203258;
+        border-radius: var(--radius);
+        padding: 20px;
+      }
+      .list {
+        display: grid;
+        gap: 10px;
+      }
+      .list a {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 14px;
+        border: 1px solid #21355d;
+        border-radius: 12px;
+        text-decoration: none;
+        color: var(--text);
+        background: #0c1423;
+      }
+      .list a:hover {
+        border-color: #35558d;
+      }
+
+      /* Footer */
+      footer {
+        padding: 40px 0;
+        color: var(--muted);
+        border-top: 1px solid rgba(255, 255, 255, 0.06);
+        text-align: center;
+      }
+
+      /* Target highlight on in-page nav */
+      :target {
+        scroll-margin-top: 80px;
+      }
+      .hilite:target {
+        animation: glow 1.2s ease;
+      }
+      @keyframes glow {
+        0% {
+          box-shadow: 0 0 0 0 rgba(110, 168, 255, 0);
+        }
+        50% {
+          box-shadow: 0 0 0 16px rgba(110, 168, 255, 0.1);
+        }
+        100% {
+          box-shadow: 0 0 0 0 rgba(110, 168, 255, 0);
+        }
+      }
+
+      /* Filter logic */
+      .projects [data-cat] {
+        display: none;
+      }
+      #all:checked ~ .projects [data-cat] {
+        display: block;
+      }
+      #web:checked ~ .projects [data-cat~="web"] {
+        display: block;
+      }
+      #mobile:checked ~ .projects [data-cat~="mobile"] {
+        display: block;
+      }
+      #data:checked ~ .projects [data-cat~="data"] {
+        display: block;
+      }
+      /* responsive cards */
+      @media (max-width: 900px) {
+        .hero {
+          grid-template-columns: 1fr;
+        }
+        .card {
+          grid-column: span 12;
+        }
+        .contact {
+          grid-template-columns: 1fr;
+        }
+        .nav-inner {
+          flex-wrap: wrap;
+          gap: 10px;
+        }
+      }
+
+      /* Reduced motion */
+      @media (prefers-reduced-motion: reduce) {
+        html:focus-within {
+          scroll-behavior: auto;
+        }
+        .hero-card,
+        .avatar,
+        .card::after {
+          animation: none;
+        }
+        .btn {
+          transition: none;
+        }
+      }
+
+      /* Animasi reveal saat scroll */
+      .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.8s ease, transform 0.8s ease;
+      }
+      .reveal.show {
+        opacity: 1;
+        transform: none;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ====== NAV ====== -->
+    <header class="site-nav">
+      <div class="container nav-inner">
+        <a class="brand" href="#top" aria-label="Beranda">
+          <span class="logo" aria-hidden="true">😎</span
+          ><span>Komang Budiarta</span>
+        </a>
+        <nav aria-label="Navigasi utama">
+          <a href="#tentang">Tentang</a>
+          <a href="#keahlian">Keahlian</a>
+          <a href="#proyek">Proyek</a>
+          <a href="#pengalaman">Pengalaman</a>
+          <a href="#kontak">Kontak</a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- ====== HERO ====== -->
+    <main id="top" class="container section">
+      <section class="hero reveal">
+        <div class="hero-card hilite" id="tentang">
+          <span class="tag">Tersedia untuk peluang kerja</span>
+          <h1>
+            Halo, saya
+            <p></p>
+            <span
+              style="
+                background: linear-gradient(
+                  90deg,
+                  var(--brand),
+                  var(--brand-2)
+                );
+                -webkit-background-clip: text;
+                background-clip: text;
+                color: transparent;
+              "
+              >I KOMANG BUDIARTA</span
+            >.
+          </h1>
+          <p class="lead">
+            Seorang <strong>Web Developer</strong> yang fokus pada antarmuka
+            modern, performa, dan aksesibilitas. Saya suka membangun pengalaman
+            yang mulus dengan detail interaksi yang halus.
+          </p>
+          <div class="cta">
+            <a class="btn" href="#proyek">Lihat Proyek</a>
+            <a class="btn secondary" href="#kontak">Hubungi Saya</a>
+            <a class="btn secondary" href="CV_KomangBudiarta.pdf" download
+              >Unduh CV</a
+            >
+          </div>
+        </div>
+        <div class="avatar" aria-label="Foto profil">
+          <!-- Ganti src dengan foto kamu -->
+          <img src="img/Budboy.png" alt="Ilustrasi avatar" />
+        </div>
+      </section>
+    </main>
+
+    <!-- ====== KEAHLIAN ====== -->
+    <section class="section reveal" aria-labelledby="keahlian-heading">
+      <div class="container">
+        <h2 id="keahlian" class="title">Keahlian</h2>
+        <p class="lead">
+          Teknologi yang sering saya gunakan dalam proyek sehari-hari.
+        </p>
+        <div class="grid" style="margin-top: 20px">
+          <div class="card" style="grid-column: span 4">
+            <h3>Frontend</h3>
+            <p>HTML5, CSS3 (Flexbox, Grid), Responsive Design, Aksesibilitas</p>
+            <div class="meta">
+              <span class="tag">Animasi CSS</span
+              ><span class="tag">Performance</span>
+            </div>
+          </div>
+          <div class="card" style="grid-column: span 4">
+            <h3>Backend</h3>
+            <p>PHP Native, MySQL, RESTful API (dasar), autentikasi sesi</p>
+            <div class="meta">
+              <span class="tag">CRUD</span
+              ><span class="tag">Security Basic</span>
+            </div>
+          </div>
+          <div class="card" style="grid-column: span 4">
+            <h3>Tools</h3>
+            <p>Git & GitHub, Figma, VS Code, CI/CD dasar (GitHub Pages)</p>
+            <div class="meta">
+              <span class="tag">Git Flow</span
+              ><span class="tag">Design → Dev</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====== PROYEK + FILTER CSS-ONLY ====== -->
+    <section class="section reveal" aria-labelledby="proyek-heading">
+      <div class="container">
+        <h2 id="proyek" class="title">Proyek Terpilih</h2>
+        <p class="lead">
+          Gunakan tab untuk memfilter kategori. (Tanpa JavaScript!)
+        </p>
+
+        <!-- Radio untuk filter -->
+        <input class="sr-only" type="radio" name="tab" id="all" checked />
+        <input class="sr-only" type="radio" name="tab" id="web" />
+        <input class="sr-only" type="radio" name="tab" id="mobile" />
+        <input class="sr-only" type="radio" name="tab" id="data" />
+
+        <div class="tabs" role="tablist" aria-label="Filter proyek">
+          <label class="chip" for="all" role="tab" aria-controls="panel-all"
+            >Semua</label
+          >
+          <label class="chip" for="web" role="tab" aria-controls="panel-web"
+            >Web</label
+          >
+          <label
+            class="chip"
+            for="mobile"
+            role="tab"
+            aria-controls="panel-mobile"
+            >Mobile</label
+          >
+          <label class="chip" for="data" role="tab" aria-controls="panel-data"
+            >Data</label
+          >
+        </div>
+
+        <div class="projects grid" id="panel-all" aria-live="polite">
+          <!-- Kartu Proyek -->
+          <article class="card" data-cat="web" aria-labelledby="p1-title">
+            <div class="thumb">
+              <img
+                alt="Tangkapan layar toko online"
+                src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=1200&auto=format&fit=crop"
+              />
+            </div>
+            <h3 id="p1-title">E‑Tourism</h3>
+            <p>
+              Website booking perjalanan wisata yang responsive dan menarik
+              (mockup).
+            </p>
+            <div class="meta">
+              <span class="tag">HTML</span><span class="tag">CSS</span
+              ><span class="tag">PHP</span>
+            </div>
+          </article>
+
+          <article class="card" data-cat="web data" aria-labelledby="p2-title">
+            <div class="thumb">
+              <img
+                alt="Dashboard analitik"
+                src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop"
+              />
+            </div>
+            <h3 id="p2-title">Dashboard Penjualan</h3>
+            <p>
+              Dashboard responsif untuk memantau tren penjualan harian dan
+              bulanan dengan tabel dan chart statis.
+            </p>
+            <div class="meta">
+              <span class="tag">HTML</span><span class="tag">CSS Grid</span
+              ><span class="tag">Data</span>
+            </div>
+          </article>
+
+          <article
+            class="card"
+            data-cat="mobile web"
+            aria-labelledby="p3-title"
+          >
+            <div class="thumb">
+              <img
+                alt="Aplikasi mobile"
+                src="https://images.unsplash.com/photo-1545235617-9465d2a55698?q=80&w=1200&auto=format&fit=crop"
+              />
+            </div>
+            <h3 id="p3-title">Landing App Mobile</h3>
+            <p>
+              Halaman promosi aplikasi mobile dengan animasi hover interaktif
+              dan CTA.
+            </p>
+            <div class="meta">
+              <span class="tag">Responsive</span
+              ><span class="tag">Animasi</span>
+            </div>
+          </article>
+
+          <article
+            class="card reveal"
+            data-cat="web"
+            aria-labelledby="p1-title"
+          >
+            <div class="thumb">
+              <img
+                alt="Blog tech"
+                src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=1200&auto=format&fit=crop"
+              />
+            </div>
+            <h3 id="p4-title">Blog Teknologi</h3>
+            <p>
+              Template blog statis dengan tipografi yang nyaman, dark mode, dan
+              halaman artikel.
+            </p>
+            <div class="meta">
+              <span class="tag">Aksesibilitas</span><span class="tag">SEO</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====== PENGALAMAN (Accordion) ====== -->
+    <section class="section reveal" aria-labelledby="pengalaman-heading">
+      <div class="container">
+        <h2 id="pengalaman" class="title">Pengalaman</h2>
+        <p class="lead">Ringkasan perjalanan profesional saya.</p>
+
+        <details class="hilite" id="exp-1">
+          <summary>Front-End Developer – Perusahaan A (2023–2024)</summary>
+          <p>
+            Membangun UI responsif, mempercepat waktu muat 35%, dan meningkatkan
+            skor Lighthouse aksesibilitas.
+          </p>
+          <p><a class="btn secondary" href="#kontak">Referensi tersedia</a></p>
+        </details>
+        <details id="exp-2">
+          <summary>Web Designer – Studio B (2021–2023)</summary>
+          <p>
+            Merancang landing page dan sistem design yang konsisten di berbagai
+            produk.
+          </p>
+        </details>
+        <details id="exp-3">
+          <summary>Freelance – Berbagai Klien (2020–sekarang)</summary>
+          <p>
+            Mengerjakan proyek website UMKM: katalog produk, form pemesanan, dan
+            optimasi SEO dasar.
+          </p>
+        </details>
+
+        <!-- ====== 
+     <p class="lead" style="margin-top: 16px">
+          Tip: klik tautan di navigasi, bagian terkait akan
+          <em>berkilau</em> sebentar sebagai umpan balik interaksi (CSS‑only).
+        </p> 
+    ====== -->
+      </div>
+    </section>
+
+    <!-- ====== KONTAK ====== -->
+    <section class="section reveal" aria-labelledby="kontak-heading">
+      <div class="container contact">
+        <div class="panel hilite" id="kontak">
+          <h2 class="title" id="kontak-heading">Kontak</h2>
+          <p class="lead">Tertarik bekerja sama? Kirim pesan:</p>
+          <div class="list" role="list">
+            <a
+              role="listitem"
+              href="mailto:omank.budiarta0110@gmail.com"
+              aria-label="Kirim email"
+            >
+              ✉️ <span>omank.budiarta0110@gmail.com</span>
+            </a>
+            <a
+              role="listitem"
+              href="https://wa.me/6281342767805"
+              target="_blank"
+              rel="noopener"
+              aria-label="WhatsApp"
+            >
+              💬 <span>WhatsApp</span>
+            </a>
+            <a
+              role="listitem"
+              href="https://github.com/Budboyyyyy"
+              target="_blank"
+              rel="noopener"
+              aria-label="GitHub"
+            >
+              🐙 <span>github.com/Budboyyyyy</span>
+            </a>
+            <a
+              role="listitem"
+              href="https://www.linkedin.com/in/komang-budiarta-7ab287365/"
+              target="_blank"
+              rel="noopener"
+              aria-label="LinkedIn"
+            >
+              🔗 <span>linkedin.com/in/Komang Budiarta</span>
+            </a>
+          </div>
+        </div>
+        <div class="panel">
+          <h3 class="title" style="font-size: 1.4rem">Kenapa saya?</h3>
+          <ul>
+            <li>Fokus pada detail dan aksesibilitas.</li>
+            <li>Komunikasi jelas, dokumentasi rapi.</li>
+            <li>Terbiasa dengan ritme agile dan kolaborasi tim.</li>
+          </ul>
+          <p class="lead">Siap berkontribusi sejak hari pertama 🚀</p>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="container">
+        © <span id="year"></span> Budboy — Dibuat dengan HTML & CSS saja.
+      </div>
+    </footer>
+
+    <!-- Tahun dinamis tanpa JS? (fallback statis) -->
+    <!-- Jika ingin 100% HTML+CSS, ganti span#year menjadi teks tahun manual-->
+    <script>
+      // Opsional: hapus blok ini jika ingin murni tanpa JS
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+
+    <script>
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("show");
+            } else {
+              entry.target.classList.remove("show"); // reset saat keluar
+            }
+          });
+        },
+        { threshold: 0.1 }
+      );
+
+      document
+        .querySelectorAll(".reveal")
+        .forEach((el) => observer.observe(el));
+    </script>
+  </body>
+</html>
