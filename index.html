@@ -96,6 +96,40 @@
         justify-content: space-between;
         padding: 16px 0;
       }
+
+.brand-link {
+  color: var(--text);
+  font-weight: 700;
+  font-size: 1.05rem;
+  text-decoration: none;
+  padding: 10px 12px;        /* sama dengan nav a */
+  border-radius: 10px;       /* biar hover glow rapi */
+  position: relative;
+}
+
+.brand-link:hover {
+  color: var(--text);
+}
+
+.brand-link::after {
+  content: "";
+  position: absolute;
+  inset: auto 10px 6px;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--brand), var(--brand-2));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s ease;
+}
+
+.brand-link:hover::after,
+.brand-link:focus::after,
+.brand-link:active::after {
+  transform: scaleX(1);
+}
+
+      
       .brand {
   font-weight: 700;
   font-size: 1.05rem;
@@ -524,9 +558,8 @@
     <!-- ====== NAV ====== -->
     <header class="site-nav">
       <div class="container nav-inner">
-        <a class="brand btn secondary" href="#top" aria-label="Beranda">
-  Budboy
-</a>
+        <a class="brand-link" href="#top">Budboy</a>
+
 
         <nav aria-label="Navigasi utama">
           <a href="#tentang">Tentang</a>
@@ -859,6 +892,7 @@
     </script>
   </body>
 </html>
+
 
 
 
