@@ -462,12 +462,15 @@
       }
       /* responsive cards */
       @media (max-width: 900px) {
+        .grid {
+    grid-template-columns: 1fr; /* jadi 1 kolom */
+  }
         .hero {
           grid-template-columns: 1fr;
         }
-        .card {
-          grid-column: span 12;
-        }
+  .card {
+    grid-column: span 1 !important; /* pastikan isi 1 kolom */
+  }
         .contact {
           grid-template-columns: 1fr;
         }
@@ -843,4 +846,5 @@
     </script>
   </body>
 </html>
+
 
